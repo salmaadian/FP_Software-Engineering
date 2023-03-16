@@ -1,0 +1,30 @@
+START
+
+READ AND WRITE "patient_name" WITH STRING
+READ AND WRITE "patient_nik" WITH INTEGER
+READ AND WRITE "room_facilities" WITH STRING
+READ AND WRITE "patient_history_card" WITH STRING
+READ AND WRITE "available" WITH BOOLEAN
+
+STORE "available" WITH TRUE
+WRITE "patient_nik"
+WRITE "patient_name"
+
+PROCEDURE administration
+	WRITE "room_facilities"
+	IF "room_facilities" is available
+		STORE "room_facilities" with "patient_nik"+"patient_name"
+	ELSE
+		PRINT "Maaf kamar yang dipilih telah penuh"
+		GO TO WRITE "room_facilities"
+END PROCEDURE
+
+IF "patient_nik" and "patient_name" is available
+	CREATE data with "patient_nik" and "patient_name"
+	STORE patient_history_card WITH ""
+	CALL administration()
+ELSE
+	READ patient_history_card
+	CALL administration()
+
+END
